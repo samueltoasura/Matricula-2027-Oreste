@@ -54,7 +54,7 @@ export default function App() {
     lugar_nacimiento: '',
     edad: '',
     genero: 'M',
-    tipo_sangre_rh: 'O+',
+    tipo_sangre_rh: '',
     municipio_residencia: 'Nilo',
     barrio_residencia: '',
     direccion_residencia: '',
@@ -322,14 +322,14 @@ export default function App() {
 
     if (paso < 4) {
       setPaso(paso + 1);
-    } else {
-      await handleSubmit(e);
     }
   };
 
-  // Función de envío final a Supabase
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Función explícita para guardar el formulario final
+  const handleGuardarFinal = async () => {
+    const esValido = await validarPasoActual(4);
+    if (!esValido) return;
+
     setCargando(true);
     setErrorMsg('');
 
@@ -341,11 +341,15 @@ export default function App() {
 
       const { error } = await supabase.from('Matricula 2027').insert([payload]);
 
-      if (error) throw error;
+      if (error) {
+        throw error;
+      }
       setCompletado(true);
     } catch (err: unknown) {
       if (err instanceof Error) {
-        setErrorMsg(`Error al guardar en Supabase: ${err.message}`);
+        setErrorMsg(`Error al guardar en la base de datos: ${err.message}`);
+      } else {
+        setErrorMsg('Error desconocido al guardar la matrícula.');
       }
     } finally {
       setCargando(false);
@@ -1837,12 +1841,13 @@ export default function App() {
                 <select
                   name="genero"
                   required
+                  translate="no"
                   value={formData.genero}
                   onChange={handleChange}
                   style={getDynamicInputStyle(formData.genero, true)}
                 >
-                  <option value="M">M</option>
-                  <option value="F">F</option>
+                  <option value="M">Masculino (M)</option>
+                  <option value="F">Femenino (F)</option>
                   <option value="No binario">No binario</option>
                 </select>
               </div>
@@ -1854,7 +1859,6 @@ export default function App() {
                   type="text"
                   name="tipo_sangre_rh"
                   required
-                  placeholder="Ej: O+"
                   value={formData.tipo_sangre_rh}
                   onChange={handleChange}
                   style={getDynamicInputStyle(formData.tipo_sangre_rh, true)}
@@ -2358,7 +2362,8 @@ export default function App() {
             </button>
           ) : (
             <button
-              type="submit"
+              type="button"
+              onClick={handleGuardarFinal}
               disabled={cargando}
               style={{
                 padding: '10px 24px',

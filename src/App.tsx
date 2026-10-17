@@ -1255,17 +1255,7 @@ export default function App() {
           </button>
         </div>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 2fr 1fr',
-            gap: '10px',
-            marginBottom: '20px',
-            background: '#f8fafc',
-            padding: '12px',
-            borderRadius: '8px',
-          }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-5 bg-slate-50 p-3 rounded-lg">
           <div>
             <label style={labelStyle}>Filtrar por Grado</label>
             <select
@@ -1284,7 +1274,7 @@ export default function App() {
             </select>
           </div>
 
-          <div>
+          <div className="md:col-span-2">
             <label style={labelStyle}>Buscar Estudiante / Documento</label>
             <input
               type="text"
@@ -1538,17 +1528,7 @@ export default function App() {
       </div>
 
       {/* PESTAÑAS DE NAVEGACIÓN CONTROLADAS Y VALIDADAS */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '8px',
-          marginBottom: '24px',
-          background: '#f8fafc',
-          padding: '8px',
-          borderRadius: '8px',
-        }}
-      >
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6 bg-slate-50 p-2 rounded-lg">
         {[
           { id: 1, label: '1. Alumno' },
           { id: 2, label: '2. Ubicación' },
@@ -1599,16 +1579,7 @@ export default function App() {
             <h4 style={sectionHeaderStyle}>
               Uso Institucional y Datos del Alumno
             </h4>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1.2fr 1fr 1fr 1fr',
-                gap: '10px',
-                background: '#f1f5f9',
-                padding: '12px',
-                borderRadius: '8px',
-              }}
-            >
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-3 bg-slate-100 p-3 rounded-lg">
               <div>
                 <label style={labelStyle}>
                   Sede <span style={requiredStarStyle}>*</span>
@@ -1680,13 +1651,7 @@ export default function App() {
               </div>
             </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '10px',
-              }}
-            >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
                 <label style={labelStyle}>Fecha de Inscripción</label>
                 <input
@@ -1720,13 +1685,7 @@ export default function App() {
               </div>
             </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '10px',
-              }}
-            >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
                 <label style={labelStyle}>
                   Primer Nombre <span style={requiredStarStyle}>*</span>
@@ -1752,13 +1711,7 @@ export default function App() {
               </div>
             </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '10px',
-              }}
-            >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
                 <label style={labelStyle}>
                   Primer Apellido <span style={requiredStarStyle}>*</span>
@@ -1784,13 +1737,7 @@ export default function App() {
               </div>
             </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1.5fr 1.5fr',
-                gap: '10px',
-              }}
-            >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div>
                 <label style={labelStyle}>
                   Tipo Identificación <span style={requiredStarStyle}>*</span>
@@ -1842,13 +1789,7 @@ export default function App() {
               </div>
             </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1.5fr 0.8fr 1fr 1fr',
-                gap: '10px',
-              }}
-            >
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
               <div>
                 <label style={labelStyle}>
                   Fecha Nacimiento <span style={requiredStarStyle}>*</span>
@@ -1928,13 +1869,7 @@ export default function App() {
             style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}
           >
             <h4 style={sectionHeaderStyle}>Ubicación del Alumno y Salud</h4>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '10px',
-              }}
-            >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
                 <label style={labelStyle}>
                   Municipio Residencia <span style={requiredStarStyle}>*</span>
@@ -1966,13 +1901,7 @@ export default function App() {
               </div>
             </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '2fr 1fr 1.5fr',
-                gap: '10px',
-              }}
-            >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div>
                 <label style={labelStyle}>
                   Dirección de Residencia{' '}
@@ -2015,13 +1944,7 @@ export default function App() {
               </div>
             </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr 1.5fr',
-                gap: '10px',
-              }}
-            >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div>
                 <label style={labelStyle}>
                   EPS <span style={requiredStarStyle}>*</span>
@@ -2096,16 +2019,7 @@ export default function App() {
               Indique las instituciones educativas donde cursó los grados anteriores:
             </p>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '10px',
-                maxHeight: '280px',
-                overflowY: 'auto',
-                paddingRight: '6px',
-              }}
-            >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[280px] overflow-y-auto pr-1">
               {(() => {
                 const gradosAnteriores = obtenerGradosAnteriores(formData.grado);
 
@@ -2205,14 +2119,7 @@ export default function App() {
               <strong style={{ fontSize: '13px', color: '#334155' }}>
                 INFORMACIÓN DEL PADRE
               </strong>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '2fr 0.8fr 1.2fr 1fr',
-                  gap: '8px',
-                  marginTop: '8px',
-                }}
-              >
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-2">
                 <input
                   type="text"
                   name="padre_nombres"
@@ -2262,14 +2169,7 @@ export default function App() {
               <strong style={{ fontSize: '13px', color: '#334155' }}>
                 INFORMACIÓN DE LA MADRE
               </strong>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '2fr 0.8fr 1.2fr 1fr',
-                  gap: '8px',
-                  marginTop: '8px',
-                }}
-              >
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-2">
                 <input
                   type="text"
                   name="madre_nombres"
@@ -2326,14 +2226,7 @@ export default function App() {
                 DATOS DEL ACUDIENTE (AUTORIZACIÓN Y/O CUSTODIA){' '}
                 <span style={requiredStarStyle}>*</span>
               </strong>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '2fr 1fr 1fr',
-                  gap: '8px',
-                  marginTop: '8px',
-                }}
-              >
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2">
                 <input
                   type="text"
                   name="acudiente_nombres"
@@ -2365,14 +2258,7 @@ export default function App() {
                   <option value="NO">Tiene Custodia: NO</option>
                 </select>
               </div>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '0.8fr 1.2fr 1fr 1.5fr',
-                  gap: '8px',
-                  marginTop: '8px',
-                }}
-              >
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-2">
                 <select
                   name="acudiente_tipo_doc"
                   value={formData.acudiente_tipo_doc}

@@ -272,7 +272,6 @@ export default function App() {
         !formData.direccion_residencia ||
         !formData.telefono ||
         !formData.eps ||
-        !formData.sisben ||
         !formData.tipo_discapacidad
       ) {
         setErrorMsg(
@@ -1964,18 +1963,14 @@ export default function App() {
                 />
               </div>
               <div>
-                <label style={labelStyle}>
-                  SISBÉN (Grupo / Nivel){' '}
-                  <span style={requiredStarStyle}>*</span>
-                </label>
+                <label style={labelStyle}>SISBÉN (Grupo / Nivel)</label>
                 <input
                   type="text"
                   name="sisben"
-                  required
                   placeholder="Ej: A1, B2"
                   value={formData.sisben}
                   onChange={handleChange}
-                  style={getDynamicInputStyle(formData.sisben, true)}
+                  style={inputStyle}
                 />
               </div>
               <div>

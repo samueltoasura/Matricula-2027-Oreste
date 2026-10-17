@@ -109,3 +109,13 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+/* --- Red de seguridad para formularios y menús desplegables --- */
+input, select, textarea {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+
+select option {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}

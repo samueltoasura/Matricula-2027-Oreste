@@ -123,7 +123,7 @@ export default function App() {
     if (esAutorizado) {
       setUsuarioAdmin(user);
       setAutenticadoAdmin(true);
-      setVistaAdmin(true); // 👈 ¡AQUÍ ESTÁ LA CLAVE! Esto abre directamente el Dashboard
+      setVistaAdmin(true);
       setErrorMsg('');
     } else {
       await supabase.auth.signOut();
@@ -387,6 +387,7 @@ export default function App() {
       ...inputStyle,
       borderColor: mostrarError ? '#ef4444' : '#cbd5e1',
       backgroundColor: mostrarError ? '#fef2f2' : '#ffffff',
+      color: '#111827',
     };
   };
 
@@ -1270,12 +1271,12 @@ export default function App() {
             <select
               value={filtroGrado}
               onChange={(e) => setFiltroGrado(e.target.value)}
-              style={inputStyle}
+              style={getDynamicInputStyle(filtroGrado, false)}
             >
               <option value="">
                 -- Todos los Grados ({registros.length}) --
               </option>
-              {[...Array(11)].map((_, i) => (
+              {[...Array(12)].map((_, i) => (
                 <option key={i} value={`Grado ${i}`}>
                   Grado {i}
                 </option>
@@ -1710,7 +1711,7 @@ export default function App() {
                   style={getDynamicInputStyle(formData.grado, true)}
                 >
                   <option value="">-- Seleccionar Grado --</option>
-                  {[...Array(11)].map((_, i) => (
+                  {[...Array(12)].map((_, i) => (
                     <option key={i} value={`Grado ${i}`}>
                       Grado {i}
                     </option>
@@ -2092,8 +2093,7 @@ export default function App() {
           >
             <h4 style={sectionHeaderStyle}>Historia Académica del Alumno</h4>
             <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>
-              Indique las instituciones educativas donde cursó los grados de 0
-              al 10:
+              Indique las instituciones educativas donde cursó los grados anteriores:
             </p>
 
             <div
@@ -2106,42 +2106,66 @@ export default function App() {
                 paddingRight: '6px',
               }}
             >
-              {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((gradoNum) => (
-                <div
-                  key={gradoNum}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    background: '#f8fafc',
-                    padding: '8px 10px',
-                    borderRadius: '6px',
-                    border: '1px solid #e2e8f0',
-                  }}
-                >
-                  <span
+              {(() => {
+                const gradosAnteriores = obtenerGradosAnteriores(formData.grado);
+
+                if (gradosAnteriores.length === 0) {
+                  return (
+                    <div
+                      style={{
+                        gridColumn: '1 / -1',
+                        padding: '12px',
+                        background: '#f8fafc',
+                        borderRadius: '6px',
+                        color: '#64748b',
+                        fontSize: '13px',
+                        fontStyle: 'italic',
+                      }}
+                    >
+                      {formData.grado
+                        ? `Para ${formData.grado} no se requiere registro de grados anteriores.`
+                        : 'Por favor seleccione primero un grado en el Paso 1.'}
+                    </div>
+                  );
+                }
+
+                return gradosAnteriores.map((gradoNum) => (
+                  <div
+                    key={gradoNum}
                     style={{
-                      fontSize: '12px',
-                      fontWeight: 'bold',
-                      width: '70px',
-                      color: '#16a34a',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      background: '#f8fafc',
+                      padding: '8px 10px',
+                      borderRadius: '6px',
+                      border: '1px solid #e2e8f0',
                     }}
                   >
-                    Grado {gradoNum}:
-                  </span>
-                  <input
-                    type="text"
-                    placeholder="Institución Educativa"
-                    value={
-                      formData.historia_academica[`grado_${gradoNum}`] || ''
-                    }
-                    onChange={(e) =>
-                      handleHistoriaChange(`grado_${gradoNum}`, e.target.value)
-                    }
-                    style={{ ...inputStyle, margin: 0 }}
-                  />
-                </div>
-              ))}
+                    <span
+                      style={{
+                        fontSize: '12px',
+                        fontWeight: 'bold',
+                        width: '70px',
+                        color: '#16a34a',
+                      }}
+                    >
+                      Grado {gradoNum}:
+                    </span>
+                    <input
+                      type="text"
+                      placeholder="Institución Educativa"
+                      value={
+                        formData.historia_academica[`grado_${gradoNum}`] || ''
+                      }
+                      onChange={(e) =>
+                        handleHistoriaChange(`grado_${gradoNum}`, e.target.value)
+                      }
+                      style={{ ...inputStyle, margin: 0 }}
+                    />
+                  </div>
+                ));
+              })()}
             </div>
 
             <div
@@ -2535,6 +2559,8 @@ const inputStyle = {
   fontSize: '13px',
   outline: 'none',
   transition: 'border-color 0.2s, background-color 0.2s',
+  color: '#111827',
+  backgroundColor: '#ffffff',
 };
 const sectionHeaderStyle = {
   color: '#16a34a',

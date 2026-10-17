@@ -342,15 +342,16 @@ export default function App() {
       const { error } = await supabase.from('Matricula 2027').insert([payload]);
 
       if (error) {
-        console.error('Error detallado de Supabase:', error);
-        setErrorMsg(`Error Supabase [${error.code}]: ${error.message} - ${error.details || ''}`);
+        console.error('Error de Supabase:', error);
+        setErrorMsg(`Supabase Error [${error.code}]: ${error.message} (${error.details || error.hint || 'Sin detalles'})`);
         return;
       }
 
       setCompletado(true);
     } catch (err: any) {
       console.error('Error general:', err);
-      setErrorMsg(`Error inesperado: ${err?.message || JSON.stringify(err)}`);
+      const msg = err?.message || err?.error_description || (typeof err === 'string' ? err : JSON.stringify(err));
+      setErrorMsg(`Error al procesar el guardado: ${msg}`);
     } finally {
       setCargando(false);
     }

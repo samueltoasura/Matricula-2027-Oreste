@@ -329,28 +329,30 @@ export default function App() {
   const handleGuardarFinal = async () => {
     const esValido = await validarPasoActual(4);
     if (!esValido) return;
-
+  
     setCargando(true);
     setErrorMsg('');
-
+  
     try {
       const payload = {
         ...formData,
         fecha_nacimiento: formData.fecha_nacimiento || null,
       };
-
-      const { error } = await supabase.from('Matricula 2027').insert([payload]);
-
+  
+      console.log('Enviando Payload:', payload);
+  
+      const { data, error } = await supabase.from('Matricula 2027').insert([payload]);
+  
       if (error) {
-        throw error;
+        console.error('Error detallado de Supabase:', error);
+        setErrorMsg(`Error Supabase [${error.code}]: ${error.message} - ${error.details || ''}`);
+        return;
       }
+  
       setCompletado(true);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setErrorMsg(`Error al guardar en la base de datos: ${err.message}`);
-      } else {
-        setErrorMsg('Error desconocido al guardar la matrícula.');
-      }
+    } catch (err: any) {
+      console.error('Error general:', err);
+      setErrorMsg(`Error inesperado: ${err?.message || JSON.stringify(err)}`);
     } finally {
       setCargando(false);
     }

@@ -2136,106 +2136,143 @@ export default function App() {
               Información de Familiares y Acudiente
             </h4>
 
+            {/* INFORMACIÓN DEL PADRE */}
             <div style={cardStyle}>
               <strong style={{ fontSize: '13px', color: '#334155' }}>
                 INFORMACIÓN DEL PADRE
               </strong>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-2">
-                <input
-                  type="text"
-                  name="padre_nombres"
-                  placeholder="Nombres y Apellidos"
-                  value={formData.padre_nombres}
-                  onChange={handleChange}
-                  style={inputStyle}
-                />
-                <select
-                  name="padre_tipo_doc"
-                  value={formData.padre_tipo_doc}
-                  onChange={handleChange}
-                  style={inputStyle}
-                >
-                  <option value="CC">CC</option>
-                  <option value="CE">CE</option>
-                  <option value="PPT">PPT</option>
-                </select>
-                <input
-                  type="text"
-                  name="padre_num_doc"
-                  placeholder="N° Documento"
-                  value={formData.padre_num_doc}
-                  onChange={handleChange}
-                  style={inputStyle}
-                />
-                <input
-                  type="text"
-                  name="padre_telefono"
-                  placeholder="Celular"
-                  value={formData.padre_telefono}
-                  onChange={handleChange}
-                  style={inputStyle}
-                />
+                <div className="md:col-span-2">
+                  <label style={labelStyle}>Nombres y Apellidos</label>
+                  <input
+                    type="text"
+                    name="padre_nombres"
+                    placeholder="Nombres y Apellidos"
+                    value={formData.padre_nombres}
+                    onChange={handleChange}
+                    style={inputStyle}
+                  />
+                </div>
+                <div>
+                  <label style={labelStyle}>Tipo Doc.</label>
+                  <select
+                    name="padre_tipo_doc"
+                    value={formData.padre_tipo_doc}
+                    onChange={handleChange}
+                    style={inputStyle}
+                  >
+                    <option value="CC">CC</option>
+                    <option value="CE">CE</option>
+                    <option value="PPT">PPT</option>
+                  </select>
+                </div>
+                <div>
+                  <label style={labelStyle}>N° Documento</label>
+                  <input
+                    type="text"
+                    name="padre_num_doc"
+                    placeholder="N° Documento"
+                    value={formData.padre_num_doc}
+                    onChange={handleChange}
+                    style={inputStyle}
+                  />
+                </div>
               </div>
-              <input
-                type="text"
-                name="padre_direccion"
-                placeholder="Dirección de Residencia"
-                value={formData.padre_direccion}
-                onChange={handleChange}
-                style={{ ...inputStyle, marginTop: '8px' }}
-              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+                <div>
+                  <label style={labelStyle}>Celular</label>
+                  <input
+                    type="text"
+                    name="padre_telefono"
+                    placeholder="Celular"
+                    value={formData.padre_telefono}
+                    onChange={handleChange}
+                    style={inputStyle}
+                  />
+                </div>
+                <div>
+                  <label style={labelStyle}>Dirección de Residencia</label>
+                  <input
+                    type="text"
+                    name="padre_direccion"
+                    placeholder="Dirección de Residencia"
+                    value={formData.padre_direccion}
+                    onChange={handleChange}
+                    style={inputStyle}
+                  />
+                </div>
+              </div>
             </div>
 
+            {/* INFORMACIÓN DE LA MADRE */}
             <div style={cardStyle}>
               <strong style={{ fontSize: '13px', color: '#334155' }}>
                 INFORMACIÓN DE LA MADRE
               </strong>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-2">
-                <input
-                  type="text"
-                  name="madre_nombres"
-                  placeholder="Nombres y Apellidos"
-                  value={formData.madre_nombres}
-                  onChange={handleChange}
-                  style={inputStyle}
-                />
-                <select
-                  name="madre_tipo_doc"
-                  value={formData.madre_tipo_doc}
-                  onChange={handleChange}
-                  style={inputStyle}
-                >
-                  <option value="CC">CC</option>
-                  <option value="CE">CE</option>
-                  <option value="PPT">PPT</option>
-                </select>
-                <input
-                  type="text"
-                  name="madre_num_doc"
-                  placeholder="N° Documento"
-                  value={formData.madre_num_doc}
-                  onChange={handleChange}
-                  style={inputStyle}
-                />
-                <input
-                  type="text"
-                  name="madre_telefono"
-                  placeholder="Celular"
-                  value={formData.madre_telefono}
-                  onChange={handleChange}
-                  style={inputStyle}
-                />
+                <div className="md:col-span-2">
+                  <label style={labelStyle}>Nombres y Apellidos</label>
+                  <input
+                    type="text"
+                    name="madre_nombres"
+                    placeholder="Nombres y Apellidos"
+                    value={formData.madre_nombres}
+                    onChange={handleChange}
+                    style={inputStyle}
+                  />
+                </div>
+                <div>
+                  <label style={labelStyle}>Tipo Doc.</label>
+                  <select
+                    name="madre_tipo_doc"
+                    value={formData.madre_tipo_doc}
+                    onChange={handleChange}
+                    style={inputStyle}
+                  >
+                    <option value="CC">CC</option>
+                    <option value="CE">CE</option>
+                    <option value="PPT">PPT</option>
+                  </select>
+                </div>
+                <div>
+                  <label style={labelStyle}>N° Documento</label>
+                  <input
+                    type="text"
+                    name="madre_num_doc"
+                    placeholder="N° Documento"
+                    value={formData.madre_num_doc}
+                    onChange={handleChange}
+                    style={inputStyle}
+                  />
+                </div>
               </div>
-              <input
-                type="text"
-                name="madre_direccion"
-                placeholder="Dirección de Residencia"
-                value={formData.madre_direccion}
-                onChange={handleChange}
-                style={{ ...inputStyle, marginTop: '8px' }}
-              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+                <div>
+                  <label style={labelStyle}>Celular</label>
+                  <input
+                    type="text"
+                    name="madre_telefono"
+                    placeholder="Celular"
+                    value={formData.madre_telefono}
+                    onChange={handleChange}
+                    style={inputStyle}
+                  />
+                </div>
+                <div>
+                  <label style={labelStyle}>Dirección de Residencia</label>
+                  <input
+                    type="text"
+                    name="madre_direccion"
+                    placeholder="Dirección de Residencia"
+                    value={formData.madre_direccion}
+                    onChange={handleChange}
+                    style={inputStyle}
+                  />
+                </div>
+              </div>
             </div>
 
+            {/* DATOS DEL ACUDIENTE */}
             <div
               style={{
                 ...cardStyle,

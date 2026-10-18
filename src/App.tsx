@@ -281,15 +281,32 @@ export default function App() {
       }
     }
 
+    if (pasoAValidar === 3) {
+      const gradosAnteriores = obtenerGradosAnteriores(formData.grado);
+      for (const gNum of gradosAnteriores) {
+        const colegio = formData.historia_academica[`grado_${gNum}`];
+        if (!colegio || colegio.trim() === '') {
+          setErrorMsg(
+            'Por favor diligencie la institución educativa para todos los grados del historial académico (*).'
+          );
+          return false;
+        }
+      }
+    }
+
     if (pasoAValidar === 4) {
       if (
         !formData.acudiente_nombres ||
         !formData.acudiente_parentesco ||
+        !formData.acudiente_custodia ||
+        !formData.acudiente_tipo_doc ||
         !formData.acudiente_num_doc ||
-        !formData.acudiente_telefono
+        !formData.acudiente_telefono ||
+        !formData.acudiente_correo ||
+        !formData.acudiente_direccion
       ) {
         setErrorMsg(
-          'Por favor diligencie todos los campos obligatorios (*) del Acudiente.'
+          'Por favor diligencie TODOS los campos obligatorios (*) de los Datos del Acudiente.'
         );
         return false;
       }
@@ -2060,22 +2077,26 @@ export default function App() {
                       style={{
                         fontSize: '12px',
                         fontWeight: 'bold',
-                        width: '70px',
+                        width: '75px',
                         color: '#16a34a',
                       }}
                     >
-                      Grado {gradoNum}:
+                      Grado {gradoNum} <span style={requiredStarStyle}>*</span>:
                     </span>
                     <input
                       type="text"
-                      placeholder="Institución Educativa"
+                      required
+                      placeholder="Institución Educativa *"
                       value={
                         formData.historia_academica[`grado_${gradoNum}`] || ''
                       }
                       onChange={(e) =>
                         handleHistoriaChange(`grado_${gradoNum}`, e.target.value)
                       }
-                      style={{ ...inputStyle, margin: 0 }}
+                      style={getDynamicInputStyle(
+                        formData.historia_academica[`grado_${gradoNum}`],
+                        true
+                      )}
                     />
                   </div>
                 ));
@@ -2227,86 +2248,151 @@ export default function App() {
                 <span style={requiredStarStyle}>*</span>
               </strong>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2">
-                <input
-                  type="text"
-                  name="acudiente_nombres"
-                  required
-                  placeholder="Nombres y Apellidos Acudiente *"
-                  value={formData.acudiente_nombres}
-                  onChange={handleChange}
-                  style={getDynamicInputStyle(formData.acudiente_nombres, true)}
-                />
-                <input
-                  type="text"
-                  name="acudiente_parentesco"
-                  required
-                  placeholder="Parentesco (Ej: Madre, Tío) *"
-                  value={formData.acudiente_parentesco}
-                  onChange={handleChange}
-                  style={getDynamicInputStyle(
-                    formData.acudiente_parentesco,
-                    true
-                  )}
-                />
-                <select
-                  name="acudiente_custodia"
-                  value={formData.acudiente_custodia}
-                  onChange={handleChange}
-                  style={inputStyle}
-                >
-                  <option value="SI">Tiene Custodia: SI</option>
-                  <option value="NO">Tiene Custodia: NO</option>
-                </select>
+                <div>
+                  <label style={labelStyle}>
+                    Nombres y Apellidos <span style={requiredStarStyle}>*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="acudiente_nombres"
+                    required
+                    placeholder="Nombres y Apellidos Acudiente *"
+                    value={formData.acudiente_nombres}
+                    onChange={handleChange}
+                    style={getDynamicInputStyle(
+                      formData.acudiente_nombres,
+                      true
+                    )}
+                  />
+                </div>
+                <div>
+                  <label style={labelStyle}>
+                    Parentesco <span style={requiredStarStyle}>*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="acudiente_parentesco"
+                    required
+                    placeholder="Parentesco (Ej: Madre, Tío) *"
+                    value={formData.acudiente_parentesco}
+                    onChange={handleChange}
+                    style={getDynamicInputStyle(
+                      formData.acudiente_parentesco,
+                      true
+                    )}
+                  />
+                </div>
+                <div>
+                  <label style={labelStyle}>
+                    Tiene Custodia <span style={requiredStarStyle}>*</span>
+                  </label>
+                  <select
+                    name="acudiente_custodia"
+                    required
+                    value={formData.acudiente_custodia}
+                    onChange={handleChange}
+                    style={getDynamicInputStyle(
+                      formData.acudiente_custodia,
+                      true
+                    )}
+                  >
+                    <option value="SI">SI</option>
+                    <option value="NO">NO</option>
+                  </select>
+                </div>
               </div>
+
               <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-2">
-                <select
-                  name="acudiente_tipo_doc"
-                  value={formData.acudiente_tipo_doc}
-                  onChange={handleChange}
-                  style={inputStyle}
-                >
-                  <option value="CC">CC</option>
-                  <option value="CE">CE</option>
-                  <option value="PPT">PPT</option>
-                </select>
+                <div>
+                  <label style={labelStyle}>
+                    Tipo Doc. <span style={requiredStarStyle}>*</span>
+                  </label>
+                  <select
+                    name="acudiente_tipo_doc"
+                    required
+                    value={formData.acudiente_tipo_doc}
+                    onChange={handleChange}
+                    style={getDynamicInputStyle(
+                      formData.acudiente_tipo_doc,
+                      true
+                    )}
+                  >
+                    <option value="CC">CC</option>
+                    <option value="CE">CE</option>
+                    <option value="PPT">PPT</option>
+                  </select>
+                </div>
+                <div>
+                  <label style={labelStyle}>
+                    N° Documento <span style={requiredStarStyle}>*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="acudiente_num_doc"
+                    required
+                    placeholder="N° Documento *"
+                    value={formData.acudiente_num_doc}
+                    onChange={handleChange}
+                    style={getDynamicInputStyle(
+                      formData.acudiente_num_doc,
+                      true
+                    )}
+                  />
+                </div>
+                <div>
+                  <label style={labelStyle}>
+                    Celular <span style={requiredStarStyle}>*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="acudiente_telefono"
+                    required
+                    placeholder="Celular *"
+                    value={formData.acudiente_telefono}
+                    onChange={handleChange}
+                    style={getDynamicInputStyle(
+                      formData.acudiente_telefono,
+                      true
+                    )}
+                  />
+                </div>
+                <div>
+                  <label style={labelStyle}>
+                    Correo Electrónico <span style={requiredStarStyle}>*</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="acudiente_correo"
+                    required
+                    placeholder="Correo Electrónico *"
+                    value={formData.acudiente_correo}
+                    onChange={handleChange}
+                    style={getDynamicInputStyle(
+                      formData.acudiente_correo,
+                      true
+                    )}
+                  />
+                </div>
+              </div>
+
+              <div style={{ marginTop: '8px' }}>
+                <label style={labelStyle}>
+                  Dirección de Residencia Acudiente{' '}
+                  <span style={requiredStarStyle}>*</span>
+                </label>
                 <input
                   type="text"
-                  name="acudiente_num_doc"
+                  name="acudiente_direccion"
                   required
-                  placeholder="N° Documento *"
-                  value={formData.acudiente_num_doc}
-                  onChange={handleChange}
-                  style={getDynamicInputStyle(formData.acudiente_num_doc, true)}
-                />
-                <input
-                  type="text"
-                  name="acudiente_telefono"
-                  required
-                  placeholder="Celular *"
-                  value={formData.acudiente_telefono}
+                  placeholder="Dirección de Residencia Acudiente *"
+                  value={formData.acudiente_direccion}
                   onChange={handleChange}
                   style={getDynamicInputStyle(
-                    formData.acudiente_telefono,
+                    formData.acudiente_direccion,
                     true
                   )}
                 />
-                <input
-                  type="email"
-                  name="acudiente_correo"
-                  placeholder="Correo Electrónico"
-                  value={formData.acudiente_correo}
-                  onChange={handleChange}
-                  style={inputStyle}
-                />
               </div>
-              <input
-                type="text"
-                name="acudiente_direccion"
-                placeholder="Dirección de Residencia Acudiente"
-                value={formData.acudiente_direccion}
-                onChange={handleChange}
-                style={{ ...inputStyle, marginTop: '8px' }}
-              />
             </div>
           </div>
         )}
